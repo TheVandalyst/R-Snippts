@@ -1,0 +1,22 @@
+library(openxlsx)
+library(dplyr)
+
+excelfile <- "C:/Downloads/FILE.xlsx"
+
+#====================================Function==========================================
+bind_rows_in_xlsx_file <- function(excelfile)
+  {
+    No.of_sheets <- length( excel_sheets( excelfile ))
+    xslxWorksheets <- list()
+    for (i in 1:No.of_sheets) 
+      {
+        xslxWorksheet <- read.xlsx(xlsxFile = excelfile, sheet = i)
+        xslxWorksheets[[i]] <- xslxWorksheet
+      }
+    binded_excel_file <- do.call(bind_rows, xslxWorksheets)
+    return(binded_excel_file)
+  }
+#======================================================================================
+#bind_rows_in_xlsx_file(excelfile)
+
+#write.xlsx(bind_rows_in_xlsx_file(excelfile), "C:/Downloads/FILE.xlsx")
